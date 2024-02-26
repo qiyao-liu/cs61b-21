@@ -1,17 +1,20 @@
 package deque;
-class IntNode<T> {
-    public IntNode<T> prev;
-    public T item;
-    public IntNode<T> next;
+import java.util.Iterator;
 
-    public IntNode(IntNode<T> m, T i, IntNode<T> n) {
-        prev = m;
-        item = i;
-        next = n;
+public class LinkedListDeque<T> implements Iterable<T> {
+    private static class IntNode<T> {
+        public IntNode<T> prev;
+        public T item;
+        public IntNode<T> next;
+
+        public IntNode(IntNode<T> m, T i, IntNode<T> n) {
+            prev = m;
+            item = i;
+            next = n;
+        }
+
     }
 
-}
-public class LinkedListDeque<T> {
     private IntNode<T> sentinel;
     private int size;
 
@@ -87,15 +90,16 @@ public class LinkedListDeque<T> {
         return p.item;
     }
 
-    public LinkedListDequeIterator<T> iterator() {
-        return new LinkedListDequeIterator<>(sentinel);
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
     }
 
-    public class LinkedListDequeIterator<T> {
+    private class LinkedListDequeIterator implements Iterator<T> {
         private IntNode<T> current;
 
-        public LinkedListDequeIterator(IntNode<T> start) {
-            current = start.next;
+        private LinkedListDequeIterator() {
+            current = sentinel.next;
         }
 
         public boolean hasNext() {
@@ -108,7 +112,6 @@ public class LinkedListDeque<T> {
             return item;
         }
 
-
     }
 
     public boolean equals(Object o) {
@@ -118,21 +121,21 @@ public class LinkedListDeque<T> {
         if (this == o) {
             return true;
         }
-        if (this.getClass() != o.getClass()) {
+        if (getClass() != o.getClass()) {
             return false;
         }
 
-        LinkedListDeque<T> other = (LinkedListDeque<T>) o;
-        if (this.size() != other.size()) {
+        LinkedListDeque<?> other = (LinkedListDeque<?>) o; // Use wildcard for generic type
+        if (size() != other.size()) {
             return false;
         }
 
-        LinkedListDequeIterator<T> thisIterator = new LinkedListDequeIterator<>(this.sentinel);
-        LinkedListDequeIterator<T> otherIterator = new LinkedListDequeIterator<>(other.sentinel);
+        Iterator<T> thisIterator = iterator();
+        Iterator<?> otherIterator = other.iterator();
 
         while (thisIterator.hasNext() && otherIterator.hasNext()) {
             T thisElement = thisIterator.next();
-            T otherElement = otherIterator.next();
+            Object otherElement = otherIterator.next();
 
             if (thisElement == null ? otherElement != null : !thisElement.equals(otherElement)) {
                 return false;
@@ -141,9 +144,9 @@ public class LinkedListDeque<T> {
 
         return true;
     }
+}
 
-
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         // Create a new LinkedListDeque
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
 
@@ -173,23 +176,11 @@ public class LinkedListDeque<T> {
         System.out.println("Element at index 0: " + deque.get(0)); // Expected output: 1
         System.out.println("Element at index 1: " + deque.get(1)); // Expected output: 2
 
-        // Test iterator
-        System.out.println("Iterating through deque using iterator:");
-        LinkedListDeque<Integer>.LinkedListDequeIterator<Integer> iterator = deque.iterator();
-        while (iterator.hasNext()) {
-            System.out.print(iterator.next() + " "); // Expected output: 1 2
-        }
-        System.out.println();
 
-        // Test equality
-        LinkedListDeque<Integer> anotherDeque = new LinkedListDeque<>();
-        anotherDeque.addLast(1);
-        anotherDeque.addLast(2);
-        System.out.println("Are the deques equal? " + deque.equals(anotherDeque)); // Expected output: true
+        ; // Expected output: true
 
         // Test isEmpty and size
         System.out.println("Is the deque empty? " + deque.isEmpty()); // Expected output: false
         System.out.println("Size of the deque: " + deque.size());      // Expected output: 2
     }
-}
-
+} **/

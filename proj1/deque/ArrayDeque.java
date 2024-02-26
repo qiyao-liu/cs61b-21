@@ -2,7 +2,7 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Iterable<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -111,6 +111,11 @@ public class ArrayDeque<T> {
         return items[start];
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+
     private class ArrayDequeIterator implements Iterator<T> {
         private int index;
 
@@ -137,9 +142,6 @@ public class ArrayDeque<T> {
         }
     }
 
-    public Iterator<T> iterator() {
-        return new ArrayDequeIterator();
-    }
 
     public boolean equals(Object o) {
         if (this == o) {
@@ -160,6 +162,7 @@ public class ArrayDeque<T> {
         return true;
     }
 
+    /*
     public static void main(String[] args) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         deque.addFirst(3);
@@ -172,4 +175,6 @@ public class ArrayDeque<T> {
         deque.removeLast();
         deque.printDeque(); // Should print: 3 4
     }
+     */
 }
+
