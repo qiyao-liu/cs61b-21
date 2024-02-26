@@ -1,5 +1,4 @@
 package deque;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -111,6 +110,7 @@ public class ArrayDeque<T> {
         }
         return items[start];
     }
+
     private class ArrayDequeIterator implements Iterator<T> {
         private int index;
 
@@ -130,7 +130,17 @@ public class ArrayDeque<T> {
             index++;
             return currentItem;
         }
+
+        // Implement remove() method if needed
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
+
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -150,17 +160,16 @@ public class ArrayDeque<T> {
         return true;
     }
 
-
     public static void main(String[] args) {
-    ArrayDeque<Integer> deque = new ArrayDeque<>();
-    deque.addFirst(3);
-    deque.addLast(4);
-    deque.addFirst(2);
-    deque.addLast(5);
-    deque.printDeque(); // Should print: 2 3 4 5
-    System.out.println("Size: " + deque.size()); // Should print: 4
-    deque.removeFirst();
-    deque.removeLast();
-    deque.printDeque(); // Should print: 3 4
-}
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addFirst(3);
+        deque.addLast(4);
+        deque.addFirst(2);
+        deque.addLast(5);
+        deque.printDeque(); // Should print: 2 3 4 5
+        System.out.println("Size: " + deque.size()); // Should print: 4
+        deque.removeFirst();
+        deque.removeLast();
+        deque.printDeque(); // Should print: 3 4
+    }
 }

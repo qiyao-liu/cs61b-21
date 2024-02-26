@@ -1,8 +1,8 @@
 package deque;
 class IntNode<T> {
-    public IntNode prev;
+    public IntNode<T> prev;
     public T item;
-    public IntNode next;
+    public IntNode<T> next;
 
     public IntNode(IntNode<T> m, T i, IntNode<T> n) {
         prev = m;
@@ -59,18 +59,18 @@ public class LinkedListDeque<T> {
             return null;
         }
         size -= 1;
-        T removedItem = (T) sentinel.next.item;
+        T removedItem = sentinel.next.item;
         sentinel.next = sentinel.next.next;
         sentinel.next.next.prev = sentinel;
         return removedItem;
     }
 
     public T removeLast() {
-        if (size == 0) {
+        if (isEmpty()) {
             return null;
         }
         size -= 1;
-        T removedItem = (T) sentinel.prev.item;
+        T removedItem = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.prev.next = sentinel;
         return removedItem;
