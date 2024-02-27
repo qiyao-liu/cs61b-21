@@ -3,14 +3,14 @@ package deque;
 import java.util.Comparator;
 
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
-    private Comparator<T> comparator ;
-    public MaxArrayDeque(Comparator<T> c){
+    private Comparator<T> comparator;
+    public MaxArrayDeque(Comparator<T> c) {
         super();
         this.comparator = c;
 
     }
 
-    public T max(){
+    public T max() {
         if (isEmpty()) {
             return null;
         }
@@ -45,7 +45,8 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         deque.addLast(1);
         deque.addLast(5);
 
-        System.out.println("Max element using natural order comparator: " + deque.max()); // Expected output: 7
+        System.out.println("Max element using natural order comparator: " + deque.max());
+        // Expected output: 7
 
         // Custom comparator to find max even number
         Comparator<Integer> evenComparator = (a, b) -> {
@@ -58,6 +59,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
             }
         };
 
-        System.out.println("Max even element: " + deque.max(evenComparator)); // Expected output: 7 (since 7 is the only even number)
+        System.out.println("Max even element: " + deque.max(evenComparator));
+        // Expected output: 7 (since 7 is the only even number)
     } */
 }

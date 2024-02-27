@@ -2,9 +2,9 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> implements Iterable<T>, Deque<T>{
+public class ArrayDeque<T> implements Iterable<T> , Deque<T> {
     private T[] items;
-    public int size;
+    private int size;
     private int nextFirst;
     private int nextLast;
 
@@ -55,13 +55,11 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T>{
         size++;
     }
 
-   /* public boolean isEmpty() {
-        return size == 0;
-    }*/
-   @Override
+    @Override
     public int size() {
         return size;
     }
+
     @Override
     public void printDeque() {
         int start = addOne(nextFirst);
@@ -119,8 +117,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T>{
     private class ArrayDequeIterator implements Iterator<T> {
         private int index;
 
-        public ArrayDequeIterator() {
-
+        ArrayDequeIterator() {
             index = 0;
         }
 

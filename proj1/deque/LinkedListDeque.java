@@ -3,16 +3,15 @@ import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     private static class IntNode<T> {
-        public IntNode<T> prev;
-        public T item;
-        public IntNode<T> next;
+        IntNode<T> prev;
+        T item;
+        IntNode<T> next;
 
-        public IntNode(IntNode<T> m, T i, IntNode<T> n) {
+        IntNode(IntNode<T> m, T i, IntNode<T> n) {
             prev = m;
             item = i;
             next = n;
         }
-
     }
 
     private IntNode<T> sentinel;
@@ -35,17 +34,10 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         size += 1;
         sentinel.prev = new IntNode<>(sentinel.prev, item, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
-
     }
-
-    /*public boolean isEmpty() {
-        return size == 0;
-
-    }*/
     @Override
     public int size() {
         return size;
-
     }
     @Override
     public void printDeque() {
@@ -89,12 +81,18 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
         return p.item;
     }
-
-
+    public T getRecursive(int index){
+        IntNode<T> p = sentinel.next;
+        if (index == 0){
+            return p.item;
+        }else{
+            p = p.next;
+        return getRecursive(index - 1);
+        }
+    }
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
-
     private class LinkedListDequeIterator implements Iterator<T> {
         private IntNode<T> current;
 
@@ -113,7 +111,6 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
 
     }
-
     public boolean equals(Object o) {
         if (o == null) {
             return false;
