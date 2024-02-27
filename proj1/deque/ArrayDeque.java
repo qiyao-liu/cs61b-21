@@ -2,9 +2,9 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T>{
     private T[] items;
-    private int size;
+    public int size;
     private int nextFirst;
     private int nextLast;
 
@@ -36,7 +36,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     private int minusOne(int index) {
         return (index - 1 + items.length) % items.length;
     }
-
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
             resize(size * 2);
@@ -45,7 +45,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         nextFirst = minusOne(nextFirst);
         size++;
     }
-
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
             resize(size * 2);
@@ -55,14 +55,14 @@ public class ArrayDeque<T> implements Iterable<T> {
         size++;
     }
 
-    public boolean isEmpty() {
+   /* public boolean isEmpty() {
         return size == 0;
-    }
-
+    }*/
+   @Override
     public int size() {
         return size;
     }
-
+    @Override
     public void printDeque() {
         int start = addOne(nextFirst);
         for (int i = 0; i < size; i++) {
@@ -71,7 +71,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         }
         System.out.println();
     }
-
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -85,7 +85,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         }
         return removedItem;
     }
-
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -99,7 +99,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         }
         return removedItem;
     }
-
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -120,10 +120,12 @@ public class ArrayDeque<T> implements Iterable<T> {
         private int index;
 
         public ArrayDequeIterator() {
+
             index = 0;
         }
 
         public boolean hasNext() {
+
             return index < size;
         }
 
@@ -138,6 +140,7 @@ public class ArrayDeque<T> implements Iterable<T> {
 
         // Implement remove() method if needed
         public void remove() {
+
             throw new UnsupportedOperationException();
         }
     }

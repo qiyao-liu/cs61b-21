@@ -1,7 +1,7 @@
 package deque;
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Iterable<T> {
+public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     private static class IntNode<T> {
         public IntNode<T> prev;
         public T item;
@@ -24,13 +24,13 @@ public class LinkedListDeque<T> implements Iterable<T> {
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
     }
-
+    @Override
     public void addFirst(T item) {
         size += 1;
         sentinel.next = new IntNode<>(sentinel, item, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
     }
-
+    @Override
     public void addLast(T item) {
         size += 1;
         sentinel.prev = new IntNode<>(sentinel.prev, item, sentinel);
@@ -38,16 +38,16 @@ public class LinkedListDeque<T> implements Iterable<T> {
 
     }
 
-    public boolean isEmpty() {
+    /*public boolean isEmpty() {
         return size == 0;
 
-    }
-
+    }*/
+    @Override
     public int size() {
         return size;
 
     }
-
+    @Override
     public void printDeque() {
         IntNode<T> p = sentinel;
         while (p.next != sentinel) {
@@ -56,7 +56,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         }
         System.out.println();
     }
-
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -67,7 +67,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         sentinel.next.next.prev = sentinel;
         return removedItem;
     }
-
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -78,7 +78,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         sentinel.prev.prev.next = sentinel;
         return removedItem;
     }
-
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -90,7 +90,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         return p.item;
     }
 
-    @Override
+
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
