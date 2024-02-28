@@ -1,7 +1,7 @@
 package gh2;
 
- import deque.Deque;
- import deque.ArrayDeque;
+import deque.Deque;
+import deque.ArrayDeque;
 
 public class GuitarString {
     /** Constants. Do not change. In case you're curious, the keyword final
@@ -44,20 +44,16 @@ public class GuitarString {
     /* Advance the simulation one time step by performing one iteration of
      * the Karplus-Strong algorithm.
      */
-    public void tic () {
-   // TODO: Dequeue the front sample and enqueue a new sample that is
-   //       the average of the two multiplied by the DECAY factor.
-                //       **Do not call StdAudio.play().**
-    double front = buffer.removeFirst();
-    double next = buffer.get(0);
-    double newDouble = DECAY * 0.5 * (front + next);
-    buffer.addLast(newDouble);
+    public void tic() {
+        //       **Do not call StdAudio.play().**
+        double front = buffer.removeFirst();
+        double next = buffer.get(0);
+        double newDouble = DECAY * 0.5 * (front + next);
+        buffer.addLast(newDouble);
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
-        // TODO: Return the correct thing.
         return buffer.get(0);
     }
 }
-    // TODO: Remove all comments that say TODO when you're done.

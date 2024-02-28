@@ -2,7 +2,7 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> implements Iterable<T> , Deque<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -142,7 +142,6 @@ public class ArrayDeque<T> implements Iterable<T> , Deque<T> {
         }
     }
 
-
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -150,16 +149,26 @@ public class ArrayDeque<T> implements Iterable<T> , Deque<T> {
         if (!(o instanceof ArrayDeque)) {
             return false;
         }
+
         ArrayDeque<?> other = (ArrayDeque<?>) o;
         if (this.size() != other.size()) {
             return false;
         }
-        for (int i = 0; i < this.size(); i++) {
-            if (!this.get(i).equals(other.get(i))) {
+
+        Iterator<T> thisIterator = iterator();
+        Iterator<?> otherIterator = other.iterator();
+
+        while (thisIterator.hasNext() && otherIterator.hasNext()) {
+            T thisElement = thisIterator.next();
+            Object otherElement = otherIterator.next();
+
+            if (thisElement == null ? otherElement != null : !thisElement.equals(otherElement)) {
                 return false;
             }
         }
-        return true;
+
+        // Check if both iterators have reached the end
+        return !thisIterator.hasNext() && !otherIterator.hasNext();
     }
 
     /*
