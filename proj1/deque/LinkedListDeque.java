@@ -93,13 +93,20 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     public T getRecursive(int index) {
-        IntNode<T> p = sentinel.next;
+        return getRecursiveHelper(sentinel.next, index);
+    }
+
+    private T getRecursiveHelper(IntNode<T> p, int index) {
+        // Base case: If index is out of bounds or p is null, return null
+        if (index < 0 || p == null) {
+            return null;
+        }
+        // Base case: If index is 0, return the item at p
         if (index == 0) {
             return p.item;
-        } else {
-            p = p.next;
-            return getRecursive(index - 1);
         }
+        // Recursive case: Move to the next node and decrement the index
+        return getRecursiveHelper(p.next, index - 1);
     }
 
     public Iterator<T> iterator() {
@@ -126,19 +133,16 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (o == null) {
-            return false;
+        if (o == null || !(o instanceof Deque)) {
+            return false;  // Parameter is null or not a Deque
         }
         if (this == o) {
-            return true;
-        }
-        if (!(o instanceof LinkedListDeque)) {
-            return false;
+            return true;  // Same reference, so equal
         }
 
-        LinkedListDeque<?> other = (LinkedListDeque<?>) o;
+        Deque<?> other = (Deque<?>) o;
         if (size() != other.size()) {
-            return false;
+            return false;  // Different sizes, so not equal
         }
 
         Iterator<T> thisIterator = iterator();
@@ -148,14 +152,16 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
             T thisElement = thisIterator.next();
             Object otherElement = otherIterator.next();
 
+            // Check if the elements are not equal
             if (thisElement == null ? otherElement != null : !thisElement.equals(otherElement)) {
-                return false;
+                return false;  // Elements are not equal, so Deques are not equal
             }
         }
 
         // Check if both iterators have reached the end
         return !thisIterator.hasNext() && !otherIterator.hasNext();
     }
+
 }
 
     /* public static void main(String[] args) {

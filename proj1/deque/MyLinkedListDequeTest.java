@@ -66,6 +66,14 @@ public class MyLinkedListDequeTest {
         assertEquals(Integer.valueOf(2), deque.removeLast());
     }
 
+    @Test
+    public void testRecursiveGet2() {
+        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
+        deque.addFirst(2);
+        deque.addFirst(3);
+        deque.addFirst(4);
+        assertEquals(Integer.valueOf(2), deque.getRecursive(2));
+    }
     public static void main(String[] args) {
         org.junit.runner.JUnitCore.main("deque.MyLinkedListDequeTest");
     }
