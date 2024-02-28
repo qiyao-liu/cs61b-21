@@ -31,6 +31,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         sentinel.next.prev = newNode; // Update the previous reference of the current first node
         sentinel.next = newNode; // Update sentinel's next reference to the new first node
     }
+    
 
     @Override
     public void addLast(T item) {
