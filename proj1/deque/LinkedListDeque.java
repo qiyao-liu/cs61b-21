@@ -108,7 +108,6 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         // Recursive case: Move to the next node and decrement the index
         return getRecursiveHelper(p.next, index - 1);
     }
-
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
