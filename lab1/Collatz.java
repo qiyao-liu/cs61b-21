@@ -3,14 +3,14 @@
  */
 public class Collatz {
 
-    /** right implementation of nextNumber! */
+    /** correct implementation of nextNumber! */
     public static int nextNumber(int n) {
         if (n == 1) {
             return 1;
-        } else if (n % 2 != 0) {
+        } else if (n % 2 == 1 ) {
             return 3 * n + 1;
         } else {
-            return n / 2;
+            return n * 2;
         }
     }
 
