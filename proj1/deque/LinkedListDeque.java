@@ -132,16 +132,18 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof Deque)) {
-            return false;  // Parameter is null or not a Deque
-        }
-        if (this == o) {
-            return true;  // Same reference, so equal
+        if (o == null || !(o instanceof LinkedListDeque)) {
+            return false;
         }
 
-        Deque<?> other = (Deque<?>) o;
+        if (this == o) {
+            return true;
+        }
+
+        LinkedListDeque<?> other = (LinkedListDeque<?>) o;
+
         if (size() != other.size()) {
-            return false;  // Different sizes, so not equal
+            return false;
         }
 
         Iterator<T> thisIterator = iterator();
@@ -151,9 +153,8 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
             T thisElement = thisIterator.next();
             Object otherElement = otherIterator.next();
 
-            // Check if the elements are not equal
             if (thisElement == null ? otherElement != null : !thisElement.equals(otherElement)) {
-                return false;  // Elements are not equal, so Deques are not equal
+                return false;
             }
         }
 
