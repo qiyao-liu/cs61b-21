@@ -146,14 +146,12 @@ public class Model extends Observable {
                 changed = true;
             }
             // Merge tiles if necessary
-            if (mergeIfNecessary(col)) {
-                changed = true;
+            if (mergeIfNecessary(col)){
+                moveAllTilesUpWithoutMerge(col);
+                changed = true;}
             }
             // Move all tiles up without merging again (if new tiles have been merged)
-            if (moveAllTilesUpWithoutMerge(col)) {
-                changed = true;
-            }
-        }
+
 
         // Reset the viewing perspective of the board to north
         board.setViewingPerspective(Side.NORTH);
@@ -171,14 +169,14 @@ public class Model extends Observable {
         int k = size() - 1; // Top row index
 
         for (int row = size() - 1; row >= 0; row--) {
-            if (board.tile(col, row) != null) {
-                // Move the tile to the topmost available position (k)
-                board.move(col, k, board.tile(col, row));
-                if (row != k) {
-                    changed = true;
-                }
-                k--; // Decrement k to move the next tile up
-            }
+            if (board.tile(col, row) != null && row == k) {  //the tile stay at the original position. the row to fill(k) decreases
+                k--;
+                continue;
+            } else if (board.tile(col, row) == null) { //if the current tile is null, continue to move to the next tile. the row to fill(k) does not change)
+                continue;}
+            board.move(col, k, board.tile(col, row)); //move the current tile to the row k
+            changed = true;
+            k--;
         }
         return changed;
     }
@@ -189,9 +187,9 @@ public class Model extends Observable {
         for (int row = size() - 2; row >= 0; row--) {
             if (board.tile(col, row) != null && board.tile(col, row + 1) != null &&
                     board.tile(col, row).value() == board.tile(col, row + 1).value()) {
-                // Merge the tile with the one below it
-                board.move(col, row, board.tile(col, row + 1));
-                score = score + board.tile(col, row).value();
+                // Merge the tile with the one above it
+                board.move(col, row+1, board.tile(col, row));
+                score = score + board.tile(col, row + 1).value();
                 changed = true;
                 row--;
             }
@@ -215,15 +213,15 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-            for (int col = 0; col < b.size(); col += 1) {
-                for (int row = 0; row < b.size(); row += 1) {
-                    if (b.tile(col, row) == null) {
-                        return true;
-                    }
+        for (int col = 0; col < b.size(); col += 1) {
+            for (int row = 0; row < b.size(); row += 1) {
+                if (b.tile(col, row) == null) {
+                    return true;
                 }
             }
-            return false;
         }
+        return false;
+    }
 
 
     /**
